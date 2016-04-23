@@ -29,6 +29,7 @@ Lastly, we will cover how to interact with this API using ReactJS. You could swi
 
 Hopefully you will find this exercise useful and practical. Please feel free to leave comments, ask questions, or get in touch if you would like to know more about a specific topic.
 
+[Click here to watch all the videos in this series][1]
 
 
 [1]: https://www.codereviewvideos.com/course/symfony-3-rest-tutorial
