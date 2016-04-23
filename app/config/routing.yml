@@ -1,0 +1,12 @@
+api_login_check:
+    path: /login
+
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix: "/doc"
+
+
+api:
+    type: rest
+    resource: "routing_api.yml"

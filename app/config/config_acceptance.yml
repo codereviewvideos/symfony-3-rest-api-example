@@ -1,0 +1,28 @@
+imports:
+    - { resource: config_test.yml }
+
+framework:
+    profiler:
+        only_exceptions: false
+        collect: true
+
+web_profiler:
+    toolbar: true
+
+doctrine:
+    dbal:
+        dbname: "%database_name%_acceptance"
+
+csa_guzzle:
+    logger: true
+    clients:
+        local_test_api:
+            config:
+                base_url: http://symfony-rest-example.dev/app_acceptance.php/
+
+# Oneup Flysystem
+oneup_flysystem:
+    adapters:
+        local_adapter:
+            local:
+                directory: %kernel.root_dir%/../features/uploadTemp

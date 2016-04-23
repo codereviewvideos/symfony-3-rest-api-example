@@ -1,0 +1,5 @@
+FOS\UserBundle\Model\User:
+    exclusion_policy: all
+    properties:
+        id:
+            exclude: false

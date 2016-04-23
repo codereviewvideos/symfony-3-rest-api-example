@@ -1,0 +1,234 @@
+parameters:
+    crv.user.entity: 'AppBundle\Entity\User'
+
+services:
+
+    # -- DATA TRANSFORMERs --
+    crv.data_transformer.account_data_transformer:
+        class: AppBundle\DataTransformer\AccountDataTransformer
+
+    crv.data_transformer.file_data_transformer:
+        class: AppBundle\DataTransformer\FileDataTransformer
+
+
+    # -- DOCTRINE ENTITY REPOSITORY --
+    crv.doctrine_entity_repository.account:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - AppBundle\Entity\Account
+
+    crv.doctrine_entity_repository.file:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - AppBundle\Entity\File
+
+    crv.doctrine_entity_repository.user:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine", getRepository]
+        arguments:
+            - AppBundle\Entity\User
+
+
+
+    # -- EVENTS --
+    crv.event.listener.content_type_listener:
+        class: AppBundle\Event\Listener\ContentTypeListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+
+
+    # -- FACTORY --
+    crv.factory.account_factory:
+        class: AppBundle\Factory\AccountFactory
+
+    crv.factory.file_factory:
+        class: AppBundle\Factory\FileFactory
+
+
+    # -- FORM --
+    crv.form.type.account:
+        class: AppBundle\Form\Type\AccountType
+        arguments:
+            - "@crv.repository.doctrine_user_repository"
+        tags:
+            - { name: form.type, alias: account_form }
+
+    crv.form.type.file:
+        class: AppBundle\Form\Type\FileType
+        tags:
+            - { name: form.type, alias: file_form }
+
+    crv.form.type.user:
+        class: AppBundle\Form\Type\UserType
+        arguments:
+            - "%crv.user.entity%"
+        tags:
+            - { name: form.type, alias: user_form }
+
+
+    crv.form.type.restricted_account:
+        class: AppBundle\Form\Type\AccountType
+        arguments:
+            - "@crv.repository.restricted_user_repository"
+        tags:
+            - { name: form.type, alias: restricted_account_form }
+
+    crv.form.type.restricted_file:
+        class: AppBundle\Form\Type\FileType
+        tags:
+            - { name: form.type, alias: restricted_file_form }
+
+    crv.form.type.restricted_user:
+        class: AppBundle\Form\Type\UserType
+        arguments:
+            - "%crv.user.entity%"
+        tags:
+            - { name: form.type, alias: restricted_user_form }
+
+
+    # -- FORM HANDLER --
+    crv.form.handler.account_form_handler:
+        class: AppBundle\Form\Handler\FormHandler
+        arguments:
+            - "@form.factory"
+            - "@crv.form.type.account"
+
+    crv.form.handler.file_form_handler:
+        class: AppBundle\Form\Handler\FormHandler
+        arguments:
+            - "@form.factory"
+            - "@crv.form.type.file"
+
+    crv.form.handler.user_form_handler:
+        class: AppBundle\Form\Handler\FormHandler
+        arguments:
+            - "@form.factory"
+            - "@crv.form.type.user"
+
+
+    crv.form.handler.restricted_account_form_handler:
+        class: AppBundle\Form\Handler\FormHandler
+        arguments:
+            - "@form.factory"
+            - "@crv.form.type.restricted_account"
+
+    crv.form.handler.restricted_file_form_handler:
+        class: AppBundle\Form\Handler\FormHandler
+        arguments:
+            - "@form.factory"
+            - "@crv.form.type.restricted_file"
+
+    crv.form.handler.restricted_user_form_handler:
+        class: AppBundle\Form\Handler\FormHandler
+        arguments:
+            - "@form.factory"
+            - "@crv.form.type.restricted_user"
+
+
+    # -- HANDLER --
+    crv.handler.restricted_account_handler:
+        class: AppBundle\Handler\AccountHandler
+        arguments:
+            - "@crv.form.handler.restricted_account_form_handler"
+            - "@crv.data_transformer.account_data_transformer"
+            - "@crv.repository.restricted_account_repository"
+            - "@crv.factory.account_factory"
+
+    crv.handler.restricted_file_handler:
+        class: AppBundle\Handler\FileHandler
+        arguments:
+            - "@crv.form.handler.restricted_file_form_handler"
+            - "@crv.data_transformer.file_data_transformer"
+            - "@crv.repository.restricted_file_repository"
+            - "@crv.factory.file_factory"
+            - "@oneup_flysystem.local_filesystem"
+            - "@crv.utility.upload_file_system"
+
+    crv.handler.restricted_user_handler:
+        class: AppBundle\Handler\UserHandler
+        arguments:
+            - "@crv.form.handler.restricted_user_form_handler"
+            - "@crv.repository.restricted_user_repository"
+
+
+
+    # -- REPOSITORY --
+    crv.repository.common_doctrine_repository:
+        class: AppBundle\Repository\Doctrine\CommonDoctrineRepository
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    crv.repository.doctrine_account_repository:
+        class: AppBundle\Repository\Doctrine\DoctrineAccountRepository
+        arguments:
+            - "@crv.repository.common_doctrine_repository"
+            - "@crv.doctrine_entity_repository.account"
+
+    crv.repository.doctrine_file_repository:
+        class: AppBundle\Repository\Doctrine\DoctrineFileRepository
+        arguments:
+            - "@crv.repository.common_doctrine_repository"
+            - "@crv.doctrine_entity_repository.file"
+
+    crv.repository.doctrine_user_repository:
+        class: AppBundle\Repository\Doctrine\DoctrineUserRepository
+        arguments:
+            - "@crv.repository.common_doctrine_repository"
+            - "@doctrine.orm.entity_manager"
+
+
+    crv.repository.restricted_account_repository:
+        class: AppBundle\Repository\Restricted\RestrictedAccountRepository
+        arguments:
+            - "@crv.repository.doctrine_account_repository"
+            - "@security.authorization_checker"
+
+    crv.repository.restricted_file_repository:
+        class: AppBundle\Repository\Restricted\RestrictedFileRepository
+        arguments:
+            - "@crv.repository.doctrine_file_repository"
+            - "@security.authorization_checker"
+
+    crv.repository.restricted_user_repository:
+        class: AppBundle\Repository\Restricted\RestrictedUserRepository
+        arguments:
+            - "@crv.repository.doctrine_user_repository"
+            - "@security.authorization_checker"
+
+
+
+    # -- MANAGERS --
+    crv.manager.user_manager:
+        class: AppBundle\Model\UserManager
+        arguments:
+            - "@fos_user.entity_manager"
+
+
+
+    # -- SECURITY ---
+    crv.security.authorization.voter.account_voter:
+        class:      AppBundle\Security\Authorization\Voter\AccountVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+
+    crv.security.authorization.voter.file_voter:
+        class:      AppBundle\Security\Authorization\Voter\FileVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+
+    crv.security.authorization.voter.user_voter:
+        class:      AppBundle\Security\Authorization\Voter\UserVoter
+        public:     false
+        tags:
+           - { name: security.voter }
+
+
+
+    # -- UTILITY --
+    crv.utility.upload_file_system:
+        class: AppBundle\Util\UploadFilesystem
