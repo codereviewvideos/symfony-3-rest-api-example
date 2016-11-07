@@ -40,7 +40,8 @@ class UploadedFile implements UploadedFileInterface
     public static function createFromSymfonyUploadedFile(SymfonyUploadedFile $uploadedFile)
     {
         return new UploadedFile(
-            $uploadedFile->getPath(),
+            //$uploadedFile->getPath(),
+            $uploadedFile->getPathname(),
             $uploadedFile->getClientOriginalName(),
             $uploadedFile->getClientMimeType(),
             $uploadedFile->getSize(),
