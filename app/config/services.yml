@@ -200,11 +200,11 @@ services:
 
 
 
-    # -- MANAGERS --
-    crv.manager.user_manager:
-        class: AppBundle\Model\UserManager
-        arguments:
-            - "@fos_user.entity_manager"
+#    # -- MANAGERS --
+#    crv.manager.user_manager:
+#        class: AppBundle\Model\UserManager
+#        arguments:
+#            - "@fos_user.user_manager"
 
 
 
