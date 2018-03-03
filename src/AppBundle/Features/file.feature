@@ -21,7 +21,7 @@ Feature: Manage uploaded Files through API
       | a2   | account2 | u1    | f3     |
       | a3   | account3 | u2    | f2     |
     And I am successfully logged in with username: "peter", and password: "testpass"
-    And when consuming the endpoint I use the "headers/content-type" of "application/json"
+    And I set header "Content-Type" with value "application/json"
 
 
   Scenario: User can GET a Collection of their Files objects

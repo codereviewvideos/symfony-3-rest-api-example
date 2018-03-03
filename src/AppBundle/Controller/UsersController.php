@@ -6,7 +6,6 @@ use AppBundle\Exception\InvalidFormException;
 use AppBundle\Handler\UserHandler;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations;
-use FOS\RestBundle\View\RouteRedirectView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -44,9 +43,7 @@ class UsersController extends FOSRestController implements ClassResourceInterfac
     {
         $user = $this->getUserHandler()->get($id);
 
-        $view = $this->view($user);
-
-        return $view;
+        return $this->view($user);
     }
 
     /**
@@ -85,7 +82,7 @@ class UsersController extends FOSRestController implements ClassResourceInterfac
      * @param Request   $request    the request object
      * @param int       $id         the user id
      *
-     * @return FormTypeInterface|RouteRedirectView
+     * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when does not exist
      */
@@ -108,7 +105,7 @@ class UsersController extends FOSRestController implements ClassResourceInterfac
                 '_format'   => $request->get('_format')
             );
 
-            return $this->routeRedirectView('get_users', $routeOptions, $statusCode);
+            return View::createRouteRedirect('get_users', $routeOptions, $statusCode);
 
         } catch (InvalidFormException $e) {
 

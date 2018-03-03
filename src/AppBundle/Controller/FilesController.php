@@ -140,7 +140,7 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
      * @param int     $accountId    the account id
      * @param int     $fileId       the file id
      *
-     * @return FormTypeInterface|RouteRedirectView
+     * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when does not exist
      */
@@ -170,7 +170,7 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
             '_format'    => $request->get('_format'),
         ];
 
-        return $this->routeRedirectView('get_accounts_files', $routeOptions, Response::HTTP_NO_CONTENT);
+        return View::createRouteRedirect('get_accounts_files', $routeOptions, Response::HTTP_NO_CONTENT);
     }
 
 
@@ -192,7 +192,7 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
      * @param int     $accountId    the account id
      * @param int     $fileId       the file id
      *
-     * @return FormTypeInterface|RouteRedirectView
+     * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when does not exist
      */
@@ -222,7 +222,7 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
             '_format'    => $request->get('_format'),
         ];
 
-        return $this->routeRedirectView('get_accounts_files', $routeOptions, Response::HTTP_NO_CONTENT);
+        return View::createRouteRedirect('get_accounts_files', $routeOptions, Response::HTTP_NO_CONTENT);
     }
 
 

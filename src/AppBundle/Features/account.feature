@@ -17,7 +17,7 @@ Feature: Manage Account data through API
       | a2  | test account      | u2,u1 |
       | a3  | an empty account  |       |
     And I am successfully logged in with username: "peter", and password: "testpass"
-    And when consuming the endpoint I use the "headers/content-type" of "application/json"
+    And I set header "Content-Type" with value "application/json"
 
 
   Scenario: User can GET a Collection of their Account objects

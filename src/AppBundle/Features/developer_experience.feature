@@ -11,7 +11,7 @@ Feature: To improve the developer experience of our API
       | u1  | peter    | peter@test.com | testpass |
       | u2  | john     | john@test.org  | johnpass |
     And I am successfully logged in with username: "peter", and password: "testpass"
-    And when consuming the endpoint I use the "headers/content-type" of "application/json"
+    And I set header "Content-Type" with value "application/json"
 
 
   Scenario: User must have the right Content-type

@@ -33,6 +33,10 @@ framework:
     http_method_override: true
     assets: ~
 
+sensio_framework_extra:
+    view:
+        annotations: true
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -104,11 +108,9 @@ fos_user:
 # FOS REST Bundle
 fos_rest:
     body_listener: true
-    format_listener:  true
     param_fetcher_listener: true
     view:
         view_response_listener: 'force'
-        exception_wrapper_handler:  null
         formats:
             jsonp: true
             json: true
@@ -116,17 +118,21 @@ fos_rest:
             rss: false
         mime_types:
             json: ['application/json', 'application/x-json']
-            jpg: 'image/jpeg'
-            png: 'image/png'
+            jpg: ['image/jpeg']
+            png: ['image/png']
         jsonp_handler: ~
     routing_loader:
         default_format:  json
         include_format:  false
     format_listener:
         rules:
-            - { path: ^/, priorities: [ json, jsonp ], fallback_format: ~, prefer_extension: true }
-    exception:
-        enabled: true
+           - { path: ^/, fallback_format: json, attributes: { _controller: 'fos_rest.exception.twig_controller:showAction' } }
+           - { path: ^/, fallback_format: html }
+    access_denied_listener: true
+    exception: true
+    serializer:
+        serialize_null: true
+
 
 
 # Lexik JWT Auth
@@ -137,9 +143,9 @@ lexik_jwt_authentication:
     token_ttl:        %jwt_token_ttl%
 
 
-# CSA Guzzle
-csa_guzzle:
-    profiler: %kernel.debug%
+# Guzzle
+eight_points_guzzle:
+    logging: %kernel.debug%
 
 
 # JMS Serializer

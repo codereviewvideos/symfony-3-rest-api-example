@@ -8,7 +8,7 @@ default:
         - FeatureContext:
             doctrine: "@doctrine"
         - AppBundle\Features\Context\RestApiContext:
-            client: "@csa_guzzle.client.local_test_api"
+            client: "@eight_points_guzzle.client.local_test_api"
             dummyDataPath: "%paths.base%/features/Dummy/"
         - AppBundle\Features\Context\AccountSetupContext:
             userManager: "@fos_user.user_manager"

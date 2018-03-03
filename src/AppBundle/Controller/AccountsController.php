@@ -101,7 +101,7 @@ class AccountsController extends FOSRestController implements ClassResourceInter
                 '_format'    => $request->get('_format'),
             ];
 
-            return $this->routeRedirectView('get_accounts', $routeOptions, Response::HTTP_CREATED);
+            return View::createRouteRedirect('get_accounts', $routeOptions, Response::HTTP_CREATED);
 
         } catch (InvalidFormException $e) {
 
@@ -127,7 +127,7 @@ class AccountsController extends FOSRestController implements ClassResourceInter
      * @param Request $request the request object
      * @param int     $id      the account id
      *
-     * @return FormTypeInterface|RouteRedirectView
+     * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when does not exist
      */
@@ -147,7 +147,7 @@ class AccountsController extends FOSRestController implements ClassResourceInter
                 '_format'    => $request->get('_format'),
             ];
 
-            return $this->routeRedirectView('get_accounts', $routeOptions, Response::HTTP_NO_CONTENT);
+            return View::createRouteRedirect('get_accounts', $routeOptions, Response::HTTP_NO_CONTENT);
 
         } catch (InvalidFormException $e) {
 
@@ -173,7 +173,7 @@ class AccountsController extends FOSRestController implements ClassResourceInter
      * @param Request $request the request object
      * @param int     $id      the account id
      *
-     * @return FormTypeInterface|RouteRedirectView
+     * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when does not exist
      */
@@ -193,7 +193,7 @@ class AccountsController extends FOSRestController implements ClassResourceInter
                 '_format'    => $request->get('_format'),
             ];
 
-            return $this->routeRedirectView('get_accounts', $routeOptions, Response::HTTP_NO_CONTENT);
+            return View::createRouteRedirect('get_accounts', $routeOptions, Response::HTTP_NO_CONTENT);
 
         } catch (InvalidFormException $e) {
 

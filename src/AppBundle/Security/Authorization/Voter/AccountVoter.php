@@ -13,9 +13,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
  */
 class AccountVoter implements VoterInterface
 {
-    /**
-     *
-     */
     const VIEW = 'view';
 
     /**
@@ -24,9 +21,7 @@ class AccountVoter implements VoterInterface
      */
     public function supportsAttribute($attribute)
     {
-        return in_array($attribute, array(
-            self::VIEW,
-        ));
+        return self::VIEW === $attribute;
     }
 
     /**
@@ -35,7 +30,7 @@ class AccountVoter implements VoterInterface
      */
     public function supportsClass($class)
     {
-        $supportedClass = 'AppBundle\Model\AccountInterface';
+        $supportedClass = AccountInterface::class;
 
         return $supportedClass === $class || is_subclass_of($class, $supportedClass);
     }
@@ -48,6 +43,10 @@ class AccountVoter implements VoterInterface
      */
     public function vote(TokenInterface $token, $requestedAccount, array $attributes)
     {
+        if (null === $requestedAccount) {
+            return VoterInterface::ACCESS_DENIED;
+        }
+
         // check if class of this object is supported by this voter
         if (!$this->supportsClass(get_class($requestedAccount))) {
             return VoterInterface::ACCESS_ABSTAIN;

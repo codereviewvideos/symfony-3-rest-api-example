@@ -10,9 +10,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 class FileVoter implements VoterInterface
 {
-    /**
-     *
-     */
     const VIEW = 'view';
 
     /**
@@ -21,9 +18,7 @@ class FileVoter implements VoterInterface
      */
     public function supportsAttribute($attribute)
     {
-        return in_array($attribute, array(
-            self::VIEW,
-        ));
+        return self::VIEW === $attribute;
     }
 
     /**
@@ -32,7 +27,7 @@ class FileVoter implements VoterInterface
      */
     public function supportsClass($class)
     {
-        $supportedClass = 'AppBundle\Model\FileInterface';
+        $supportedClass = FileInterface::class;
 
         return $supportedClass === $class || is_subclass_of($class, $supportedClass);
     }
@@ -45,6 +40,10 @@ class FileVoter implements VoterInterface
      */
     public function vote(TokenInterface $token, $requestedFile, array $attributes)
     {
+        if (null === $requestedFile) {
+            return VoterInterface::ACCESS_DENIED;
+        }
+
         // check if class of this object is supported by this voter
         if (!$this->supportsClass(get_class($requestedFile))) {
             return VoterInterface::ACCESS_ABSTAIN;

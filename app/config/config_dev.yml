@@ -35,9 +35,9 @@ monolog:
 #    delivery_address: me@example.com
 
 
-csa_guzzle:
-    logger: true
+eight_points_guzzle:
+    logging: true
     clients:
         local_test_api:
-            config:
-                base_url: http://symfony-rest-example.dev/app_dev.php/
+            base_url: http://127.0.0.1:8000/app_dev.php/
+#            base_url: http://symfony-rest-example.dev/app_dev.php/
