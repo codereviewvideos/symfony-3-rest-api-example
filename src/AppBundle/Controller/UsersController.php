@@ -8,7 +8,9 @@ use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,13 +27,19 @@ class UsersController extends FOSRestController implements ClassResourceInterfac
     /**
      * Get a single User.
      *
-     * @ApiDoc(
-     *   output = "AppBundle\Entity\User",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Get a single User.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param int   $id     the user id
      *
@@ -49,12 +57,15 @@ class UsersController extends FOSRestController implements ClassResourceInterfac
     /**
      * Gets a collection of Users.
      *
-     * @ApiDoc(
-     *   output = "AppBundle\Entity\User",
-     *   statusCodes = {
-     *     405 = "Method not allowed"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Gets a collection of Users.",
+     *     @SWG\Response(
+     *         response="405",
+     *         description="Method not allowed"
+     *     )
      * )
+     *
      *
      * @throws MethodNotAllowedHttpException
      *
@@ -68,16 +79,27 @@ class UsersController extends FOSRestController implements ClassResourceInterfac
     /**
      * Update existing User from the submitted data
      *
-     * @ApiDoc(
-     *   resource = true,
-     *   input = "AppBundle\Form\UserType",
-     *   statusCodes = {
-     *     204 = "Returned when successful",
-     *     400 = "Returned when errors",
-     *     401 = "Returned when provided password is incorrect",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Update existing User from the submitted data",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when errors"
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Returned when provided password is incorrect"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param Request   $request    the request object
      * @param int       $id         the user id

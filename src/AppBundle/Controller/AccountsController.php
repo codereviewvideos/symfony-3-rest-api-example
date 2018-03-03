@@ -11,7 +11,9 @@ use FOS\RestBundle\View\RouteRedirectView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use JMS\Serializer\SerializationContext;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,13 +25,19 @@ class AccountsController extends FOSRestController implements ClassResourceInter
     /**
      * Get a single account.
      *
-     * @ApiDoc(
-     *   output = "AppBundle\Entity\Account",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Get a single account.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param int         $accountId    the account id
      *
@@ -50,13 +58,19 @@ class AccountsController extends FOSRestController implements ClassResourceInter
     /**
      * Gets a collection of the given User's Accounts.
      *
-     * @ApiDoc(
-     *   output = "AppBundle\Entity\Account",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Gets a collection of the given User's Accounts.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @throws NotFoundHttpException when does not exist
      *
@@ -78,14 +92,19 @@ class AccountsController extends FOSRestController implements ClassResourceInter
     /**
      * Creates a new Account
      *
-     * @ApiDoc(
-     *  input = "AppBundle\Form\Type\AccountFormType",
-     *  output = "AppBundle\Entity\Account",
-     *  statusCodes={
-     *         201="Returned when a new Account has been successfully created",
-     *         400="Returned when the posted data is invalid"
-     *     }
+     * @Operation(
+     *     tags={""},
+     *     summary="Creates a new Account",
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Returned when a new Account has been successfully created"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when the posted data is invalid"
+     *     )
      * )
+     *
      *
      * @param Request $request
      * @return View
@@ -113,16 +132,23 @@ class AccountsController extends FOSRestController implements ClassResourceInter
     /**
      * Update existing Account from the submitted data
      *
-     * @ApiDoc(
-     *   resource = true,
-     *   input = "AppBundle\Form\AccountType",
-     *   output = "AppBundle\Entity\Account",
-     *   statusCodes = {
-     *     204 = "Returned when successful",
-     *     400 = "Returned when errors",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Update existing Account from the submitted data",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when errors"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param Request $request the request object
      * @param int     $id      the account id
@@ -159,16 +185,23 @@ class AccountsController extends FOSRestController implements ClassResourceInter
     /**
      * Replaces existing Account from the submitted data
      *
-     * @ApiDoc(
-     *   resource = true,
-     *   input = "AppBundle\Form\AccountType",
-     *   output = "AppBundle\Entity\Account",
-     *   statusCodes = {
-     *     204 = "Returned when successful",
-     *     400 = "Returned when errors",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Replaces existing Account from the submitted data",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when errors"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param Request $request the request object
      * @param int     $id      the account id
@@ -205,13 +238,19 @@ class AccountsController extends FOSRestController implements ClassResourceInter
     /**
      * Deletes a specific Account by ID
      *
-     * @ApiDoc(
-     *  description="Deletes an existing Account",
-     *  statusCodes={
-     *         204="Returned when an existing Account has been successfully deleted",
-     *         403="Returned when trying to delete a non existent Account"
-     *     }
+     * @Operation(
+     *     tags={""},
+     *     summary="Deletes an existing Account",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when an existing Account has been successfully deleted"
+     *     ),
+     *     @SWG\Response(
+     *         response="403",
+     *         description="Returned when trying to delete a non existent Account"
+     *     )
      * )
+     *
      *
      * @param int         $id       the account id
      * @return View

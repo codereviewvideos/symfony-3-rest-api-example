@@ -8,7 +8,9 @@ use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\View\RouteRedirectView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Routing\ClassResourceInterface;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Nelmio\ApiDocBundle\Annotation\Operation;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +26,19 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
     /**
      * Get a single file.
      *
-     * @ApiDoc(
-     *   output = "AppBundle\Entity\File",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Get a single file.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param int         $accountId        the Account id
      * @param int         $fileId           the File id
@@ -49,13 +57,19 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
     /**
      * Gets a collection of the given User's Files.
      *
-     * @ApiDoc(
-     *   output = "AppBundle\Entity\File",
-     *   statusCodes = {
-     *     200 = "Returned when successful",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Gets a collection of the given User's Files.",
+     *     @SWG\Response(
+     *         response="200",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param int         $accountId        the Account id
      *
@@ -80,14 +94,26 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
     /**
      * Creates a new File
      *
-     * @ApiDoc(
-     *  input = "AppBundle\Form\Type\FileType",
-     *  output = "AppBundle\Entity\File",
-     *  statusCodes={
-     *         201="Returned when a new File has been successfully created",
-     *         400="Returned when the posted data is invalid"
-     *     }
+     * @Operation(
+     *     tags={""},
+     *     summary="Creates a new File",
+     *     @SWG\Parameter(
+     *         name="filePath",
+     *         in="formData",
+     *         description="",
+     *         required=false,
+     *         type="file"
+     *     ),
+     *     @SWG\Response(
+     *         response="201",
+     *         description="Returned when a new File has been successfully created"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when the posted data is invalid"
+     *     )
      * )
+     *
      *
      * @param Request     $request
      * @param int         $accountId    the account id
@@ -125,16 +151,23 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
     /**
      * Update existing File from the submitted data
      *
-     * @ApiDoc(
-     *   resource = true,
-     *   input = "AppBundle\Form\FileType",
-     *   output = "AppBundle\Entity\File",
-     *   statusCodes = {
-     *     204 = "Returned when successful",
-     *     400 = "Returned when errors",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Update existing File from the submitted data",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when errors"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param Request $request      the request object
      * @param int     $accountId    the account id
@@ -177,16 +210,23 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
     /**
      * Replaces existing File from the submitted data
      *
-     * @ApiDoc(
-     *   resource = true,
-     *   input = "AppBundle\Form\FileType",
-     *   output = "AppBundle\Entity\File",
-     *   statusCodes = {
-     *     204 = "Returned when successful",
-     *     400 = "Returned when errors",
-     *     404 = "Returned when not found"
-     *   }
+     * @Operation(
+     *     tags={""},
+     *     summary="Replaces existing File from the submitted data",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when successful"
+     *     ),
+     *     @SWG\Response(
+     *         response="400",
+     *         description="Returned when errors"
+     *     ),
+     *     @SWG\Response(
+     *         response="404",
+     *         description="Returned when not found"
+     *     )
      * )
+     *
      *
      * @param Request $request      the request object
      * @param int     $accountId    the account id
@@ -229,13 +269,19 @@ class FilesController extends FOSRestController implements ClassResourceInterfac
     /**
      * Deletes a specific File by ID
      *
-     * @ApiDoc(
-     *  description="Deletes an existing File",
-     *  statusCodes={
-     *    204 = "Returned when an existing File has been successfully deleted",
-     *    403 = "Returned when trying to delete a non existent File"
-     *  }
+     * @Operation(
+     *     tags={""},
+     *     summary="Deletes an existing File",
+     *     @SWG\Response(
+     *         response="204",
+     *         description="Returned when an existing File has been successfully deleted"
+     *     ),
+     *     @SWG\Response(
+     *         response="403",
+     *         description="Returned when trying to delete a non existent File"
+     *     )
      * )
+     *
      *
      * @param int     $accountId    the account id
      * @param int     $fileId       the file id
